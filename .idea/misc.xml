@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/jessi/Programas/cinedroid/app/src/main/res/drawable/bg.xml" value="0.28854166666666664" />
+        <entry key="..\:/jessi/Programas/cinedroid/app/src/main/res/drawable/card_background.xml" value="0.28854166666666664" />
+        <entry key="..\:/jessi/Programas/cinedroid/app/src/main/res/drawable/card_border.xml" value="0.18981481481481483" />
+        <entry key="..\:/jessi/Programas/cinedroid/app/src/main/res/drawable/ic_baseline_star_24.xml" value="0.14635416666666667" />
+        <entry key="..\:/jessi/Programas/cinedroid/app/src/main/res/drawable/ic_cinedroid.xml" value="0.14635416666666667" />
+        <entry key="..\:/jessi/Programas/cinedroid/app/src/main/res/drawable/ic_icon_back.xml" value="0.3828125" />
+        <entry key="..\:/jessi/Programas/cinedroid/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2604166666666667" />
+        <entry key="..\:/jessi/Programas/cinedroid/app/src/main/res/drawable/movie_card_border.xml" value="0.38229166666666664" />
+        <entry key="..\:/jessi/Programas/cinedroid/app/src/main/res/font/open_sans_condensed.xml" value="0.2175925925925926" />
+        <entry key="..\:/jessi/Programas/cinedroid/app/src/main/res/layout/activity_main.xml" value="0.12764883955600403" />
+        <entry key="..\:/jessi/Programas/cinedroid/app/src/main/res/layout/activity_movie_details.xml" value="0.13072916666666667" />
+        <entry key="..\:/jessi/Programas/cinedroid/app/src/main/res/layout/activity_movie_details_activity.xml" value="0.25" />
+        <entry key="..\:/jessi/Programas/cinedroid/app/src/main/res/layout/activity_movie_details_activityy.xml" value="0.24427083333333333" />
+        <entry key="..\:/jessi/Programas/cinedroid/app/src/main/res/layout/activity_movie_list.xml" value="0.13072916666666667" />
+        <entry key="..\:/jessi/Programas/cinedroid/app/src/main/res/layout/list_movies_item_view.xml" value="0.4" />
+        <entry key="..\:/jessi/Programas/cinedroid/app/src/main/res/layout/movie_information_view.xml" value="0.2534775888717156" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

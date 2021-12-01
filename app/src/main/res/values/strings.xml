@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">CineDroid</string>
+    <string name="activity_main_new_movies_description">New Movies</string>
+    <string name="activity_main_most_popular_movies_description">Most Popular</string>
+    <string name="top_rated">Top Rated</string>
+    <string name="error_api">Error in getting data</string>
+</resources>
