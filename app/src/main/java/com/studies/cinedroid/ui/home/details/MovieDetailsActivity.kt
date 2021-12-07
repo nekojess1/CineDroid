@@ -23,7 +23,6 @@ class MovieDetailsActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.movie_description_details_activity)
     }
 
-
     private val backButton by lazy {
         findViewById<ImageButton>(R.id.ic_back_activity_movie_details)
     }

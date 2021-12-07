@@ -1,46 +1,63 @@
 package com.studies.cinedroid.ui.home
 
-import androidx.lifecycle.Observer
-import androidx.test.runner.AndroidJUnit4
-import com.studies.cinedroid.data.repository.MovieRepository
-import com.studies.cinedroid.domain.model.response.Movies
-import com.studies.cinedroid.domain.model.response.MoviesResponse
+import com.studies.cinedroid.model.BaseMoviesTest
 import com.studies.cinedroid.ui.home.list.MovieListViewModel
 import io.mockk.coEvery
-import io.mockk.every
 import io.mockk.mockk
-import io.mockk.verify
-import org.junit.Rule
+import junit.framework.TestCase.assertTrue
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import org.junit.Assert
+import org.junit.Before
 import org.junit.Test
-import org.junit.runner.RunWith
 
-@RunWith(AndroidJUnit4::class)
-class MovieListActivityViewModelTest {
-    private val repository = mockk<MovieRepository>()
-    private val onDataLoadedObserver = mockk<Observer<List<Movies>>>(relaxed = true)
+@ExperimentalCoroutinesApi
+class MovieListActivityViewModelTest : BaseMoviesTest() {
+    private lateinit var viewModel: MovieListViewModel
 
-    @get:Rule
-    val rule :
-    @Test
-    fun `when view model fetches data then it should call the repository`() {
-        val viewModel = instantiateViewModel()
-        val movie = Movies(
-            false, "", listOf(2), 4, "`PT",
-            "Teste Mockk", "Testando", 10.0, "", "",
-            "Teste android", false, 5.0, 3
-        )
-        val mockedList = MoviesResponse(2, listOf(movie))
-
-        coEvery {
-            repository.getPopularMovies()
-        } returns mockedList
-
-        viewModel.loadTopMovies()
-        verify { viewModel.loadTopMovies() }
+    @Before
+    internal fun setUp() {
+        viewModel = MovieListViewModel(repository)
     }
 
-    private fun instantiateViewModel(): MovieListViewModel {
-        val viewModel = MovieListViewModel(repository)
-        return viewModel
+    @Test
+    fun `Get all popular movies returns successful`() {
+        coEvery {
+            repository.getPopularMovies()
+        } returns mockk(relaxed = true)
+
+        viewModel.loadPopularMovies()
+        assertTrue(viewModel.popularMoviesList.value != null)
+    }
+
+    @Test
+    fun `Get all popular movies returns error`() {
+        coEvery {
+            repository.getPopularMovies()
+        }.throws(Throwable("Invalid data returned"))
+
+        viewModel.loadPopularMovies()
+
+        Assert.assertTrue(viewModel.errorLiveData.value != null)
+    }
+
+    @Test
+    fun `Get all top movies returns successful`() {
+        coEvery {
+            repository.getTopMovies()
+        } returns mockk(relaxed = true)
+
+        viewModel.loadTopMovies()
+        assertTrue(viewModel.topMoviesList.value != null)
+    }
+
+    @Test
+    fun `Get all top movies returns error`() {
+        coEvery {
+            repository.getTopMovies()
+        }.throws(Throwable("Invalid data returned"))
+
+        viewModel.loadTopMovies()
+
+        Assert.assertTrue(viewModel.errorLiveData.value != null)
     }
 }
