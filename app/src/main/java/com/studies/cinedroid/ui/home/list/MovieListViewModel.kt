@@ -1,6 +1,6 @@
 package com.studies.cinedroid.ui.home.list
 
-import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -12,6 +12,11 @@ class MovieListViewModel(private val repository: MovieRepository) :
     ViewModel() {
 
     var popularMoviesList: MutableLiveData<List<Movies>> = MutableLiveData()
+
+    private val errorMutableLiveData = MutableLiveData<String>()
+    val errorLiveData: LiveData<String> get() = errorMutableLiveData
+
+
     var topMoviesList: MutableLiveData<List<Movies>> = MutableLiveData()
 
     fun getPopularMoviesObserver(): MutableLiveData<List<Movies>> {
@@ -28,7 +33,7 @@ class MovieListViewModel(private val repository: MovieRepository) :
                 val response = repository.getPopularMovies()
                 popularMoviesList.postValue(response.results)
             }.onFailure {
-                popularMoviesList.postValue(null)
+                errorMutableLiveData.value = it.message ?: it.localizedMessage ?: ""
             }
         }
     }
@@ -39,7 +44,7 @@ class MovieListViewModel(private val repository: MovieRepository) :
                 val response = repository.getTopMovies()
                 topMoviesList.postValue(response.results)
             }.onFailure {
-                topMoviesList.postValue(null)
+                errorMutableLiveData.value = it.message ?: it.localizedMessage ?: ""
             }
         }
     }
