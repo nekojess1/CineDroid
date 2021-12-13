@@ -1,21 +1,16 @@
 package com.studies.cinedroid.model
 
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.studies.cinedroid.data.repository.MovieRepository
 import com.studies.cinedroid.utils.CoRuleTest
-import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Rule
+import org.koin.test.KoinTest
+import org.robolectric.annotation.LooperMode
 
 @ExperimentalCoroutinesApi
-abstract class BaseMoviesTest {
+@LooperMode(LooperMode.Mode.PAUSED)
+abstract class BaseMoviesTest : KoinTest {
 
-    val repository = mockk<MovieRepository>(relaxed = true)
-
-    @get:Rule
-    val rule = InstantTaskExecutorRule()
-
-    @ExperimentalCoroutinesApi
     @get:Rule
     var coRuleTest = CoRuleTest()
+
 }

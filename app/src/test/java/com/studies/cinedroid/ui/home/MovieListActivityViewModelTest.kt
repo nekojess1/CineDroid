@@ -1,5 +1,6 @@
 package com.studies.cinedroid.ui.home
 
+import com.studies.cinedroid.data.repository.MovieRepository
 import com.studies.cinedroid.model.BaseMoviesTest
 import com.studies.cinedroid.ui.home.list.MovieListViewModel
 import io.mockk.coEvery
@@ -13,6 +14,7 @@ import org.junit.Test
 @ExperimentalCoroutinesApi
 class MovieListActivityViewModelTest : BaseMoviesTest() {
     private lateinit var viewModel: MovieListViewModel
+    private val repository = mockk<MovieRepository>(relaxed = true)
 
     @Before
     internal fun setUp() {
