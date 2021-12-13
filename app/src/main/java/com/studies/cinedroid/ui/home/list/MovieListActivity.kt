@@ -2,7 +2,6 @@ package com.studies.cinedroid.ui.home.list
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.studies.cinedroid.R
@@ -38,13 +37,15 @@ class MovieListActivity : AppCompatActivity(), RecyclerViewClickInterface {
     }
 
     private fun initTopMoviesList() {
-        topMoviesList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        topMoviesList.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         topMoviesListAdapter = MovieListAdapter(this)
         topMoviesList.adapter = topMoviesListAdapter
     }
 
     private fun initPopularMoviesList() {
-        popularMoviesList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        popularMoviesList.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         popularMoviesListAdapter = MovieListAdapter(this)
         popularMoviesList.adapter = popularMoviesListAdapter
     }
@@ -77,10 +78,11 @@ class MovieListActivity : AppCompatActivity(), RecyclerViewClickInterface {
     private fun initPopularMoviesObserver() {
         viewModel.getPopularMoviesObserver().observe(this, { listMovies ->
             listMovies?.let {
-                popularMoviesListAdapter.setListData(it) }
-            ?: run {
-                showToast(getString(R.string.error_api))
+                popularMoviesListAdapter.setListData(it)
             }
+                ?: run {
+                    showToast(getString(R.string.error_api))
+                }
         })
     }
 
