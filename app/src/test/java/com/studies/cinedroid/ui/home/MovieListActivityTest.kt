@@ -1,7 +1,9 @@
 package com.studies.cinedroid.ui.home
 
 import android.os.Build
+import com.studies.cinedroid.domain.model.response.Movies
 import com.studies.cinedroid.model.BaseMoviesTest
+import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.After
 import org.junit.Before
@@ -40,6 +42,56 @@ class MovieListActivityTest : BaseMoviesTest() {
                 assertActivityFinishCall()
             }
         }
+    }
+
+    @Test
+    fun `when the item of recycler view is clicked, the MovieListActivity Must show`() {
+        with(robot) {
+            arrange {
+                launch()
+            }
+            action {
+                clickRecyclerView()
+            }
+            assert {
+
+            }
+        }
+    }
+
+    @Test
+    fun `when injection list movies, of the list is equal expected`() {
+        with(robot) {
+            arrange {
+                mockMoviesValues(mockList)
+                launch()
+            }
+            action {
+            }
+            assert {
+                assertMovies(mockList.size)
+            }
+        }
+    }
+
+    @Test
+    fun `when injection empty list movies, of the list is empty`() {
+        with(robot) {
+            arrange {
+                mockMoviesValues(emptyList)
+                launch()
+            }
+            action {
+            }
+            assert {
+                assertMovies(emptyList.size)
+            }
+        }
+    }
+
+    companion object {
+        private val emptyList = arrayListOf<Movies>()
+        private val mockList = mockk<List<Movies>>()
     }
 }
 
