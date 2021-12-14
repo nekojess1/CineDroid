@@ -4,21 +4,26 @@ import androidx.recyclerview.widget.RecyclerView
 import com.studies.cinedroid.R
 import com.studies.cinedroid.data.repository.MovieRepository
 import com.studies.cinedroid.domain.model.response.Movies
+import com.studies.cinedroid.domain.model.response.MoviesResponse
+import com.studies.cinedroid.ui.home.details.MovieDetailsActivity
 import com.studies.cinedroid.ui.home.list.MovieListActivity
 import com.studies.cinedroid.ui.home.list.MovieListViewModel
 import com.studies.cinedroid.utils.robolectric.RobolectricRobotBase
 import io.mockk.coEvery
+import io.mockk.every
 import io.mockk.mockk
 import io.mockk.unmockkAll
 import org.junit.Assert.assertTrue
 import org.koin.core.context.loadKoinModules
 import org.koin.core.context.stopKoin
 import org.koin.dsl.module
+import org.robolectric.shadows.ShadowActivity
 import kotlin.test.assertEquals
 
 internal class MovieListActivityRobot : RobolectricRobotBase() {
     private lateinit var subject: MovieListActivity
-    private val repository = mockk<MovieRepository>()
+    private var shadow: ShadowActivity? = null
+    private val repository = mockk<MovieRepository>(relaxed = true)
     private val viewModel = MovieListViewModel(repository)
 
     private val followUpModule = module {
@@ -38,19 +43,20 @@ internal class MovieListActivityRobot : RobolectricRobotBase() {
         fun launch() {
             buildActivity<MovieListActivity>().run {
                 subject = spyActivity
+                shadow = shadowActivity
             }
         }
 
         fun mockMoviesValues(values: List<Movies>) {
             coEvery {
-                repository.getPopularMovies().results
-            } returns values
+                repository.getPopularMovies()
+            } returns MoviesResponse(1, values)
         }
     }
 
     inner class Action {
         fun clickOnBackPressed() = subject.onBackPressed()
-        fun clickRecyclerView() = recyclerView.getChildAt(0).performClick()
+        fun clickRecyclerView() = recyclerView.findViewHolderForAdapterPosition(0)?.itemView?.performClick()
     }
 
     inner class Assert {
@@ -60,6 +66,13 @@ internal class MovieListActivityRobot : RobolectricRobotBase() {
 
         fun assertMovies(listSize: Int) {
             assertEquals(listSize, recyclerView.adapter?.itemCount)
+        }
+
+        fun assertInitActivity() {
+            val intent = shadow?.peekNextStartedActivity()
+            assertEquals(
+                MovieDetailsActivity::class.java.canonicalName, intent?.component?.className
+            )
         }
     }
 

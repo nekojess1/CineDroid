@@ -45,7 +45,7 @@ class MovieListActivityTest : BaseMoviesTest() {
     }
 
     @Test
-    fun `when the item of recycler view is clicked, the MovieListActivity Must show`() {
+    fun `when the item of recycler view is clicked, the MovieDetailsActivity Must show`() {
         with(robot) {
             arrange {
                 launch()
@@ -54,7 +54,7 @@ class MovieListActivityTest : BaseMoviesTest() {
                 clickRecyclerView()
             }
             assert {
-
+                assertInitActivity()
             }
         }
     }
@@ -91,7 +91,11 @@ class MovieListActivityTest : BaseMoviesTest() {
 
     companion object {
         private val emptyList = arrayListOf<Movies>()
-        private val mockList = mockk<List<Movies>>()
+        private val mockList = arrayListOf<Movies>(
+            mockk(relaxed = true),
+            mockk(relaxed = true),
+            mockk(relaxed = true)
+        )
     }
 }
 
