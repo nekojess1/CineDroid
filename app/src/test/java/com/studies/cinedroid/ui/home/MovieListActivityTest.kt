@@ -48,6 +48,7 @@ class MovieListActivityTest : BaseMoviesTest() {
     fun `when the item of recycler view is clicked, the MovieDetailsActivity Must show`() {
         with(robot) {
             arrange {
+                mockMoviesValues(mockList)
                 launch()
             }
             action {
