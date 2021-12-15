@@ -23,7 +23,7 @@ import kotlin.test.assertEquals
 internal class MovieListActivityRobot : RobolectricRobotBase() {
     private lateinit var subject: MovieListActivity
     private var shadow: ShadowActivity? = null
-    private val repository = mockk<MovieRepository>(relaxed = true)
+    private val repository = mockk<MovieRepository>()
     private val viewModel = MovieListViewModel(repository)
 
     private val followUpModule = module {
@@ -50,7 +50,9 @@ internal class MovieListActivityRobot : RobolectricRobotBase() {
         fun mockMoviesValues(values: List<Movies>) {
             coEvery {
                 repository.getPopularMovies()
-            } returns MoviesResponse(1, values)
+            } returns mockk {
+                every { results } returns values
+            }
         }
     }
 
